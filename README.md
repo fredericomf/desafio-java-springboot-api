@@ -1,26 +1,63 @@
-![thumbnail-Desafio Java (1)](https://github.com/jacqueline-oliveira/3356-java-desafio-front/assets/66698429/6f1cf2db-ca91-493b-b37c-2c08ad2afc50)
+# Desafio curso Java - Springboot - API
+Projeto para o desafio do curso "Java: criando sua primeira API e conectando ao front"
 
-# Front-end da aplicação: Frases clássicas de filmes e séries ScreenMatch
+Para rodar a parte frontend: Instalar a extenção "live server" do VSCode para "rodar" o front (clique direito sobre o index.html e escolha "Open with Live Server").
 
-Essa é a aplicação Front-end que será utilizada no desafio proposto na última aula do curso.
+# Banco de dados
 
-Para visualizar a mesma, após o download ou clone do projeto, abra-a com o VS Code
+## Postgres
 
-Caso não possua, instale a extensão *Live Server*.
+Instalado no Docker para facilitar o desenvolvimento e não "sujar" o Sistema Operacional de trabalho.
 
-Feito isso, clique com o botão direito no arquivo **index.html** e escolha "Open with Live Server".
+_Nota: não criei um volume para esse container porque a aplicação é muito simples (somente estudo), não vejo necessidade de persistência_
 
-A princípio, caso a sua API ainda não esteja desenvolvida, o conteúdo que você verá será esse abaixo:
+### Rodar:
+```bash
+sudo docker run -p 5432:5432 -e POSTGRES_PASSWORD=admin -d postgres
+```
+
+Caso queira rodar com volume, eu preparei um arquivo do Docker Compose para rodar:
+```bash
+sudo docker compose up
+```
+
+# Utilidades
+
+## Links
+
+### Documentação sobre Derived Queries
+
+https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html
+
+### Artigo sobre SQL Join
+
+https://www.alura.com.br/artigos/join-e-seus-tipos
 
 
-![image](https://github.com/jacqueline-oliveira/3356-java-desafio-front/assets/66698429/4b612a93-09d8-4376-8c30-8b18fbecd2fc)
+## Problemas que podem ocorrer
 
+### Porta já ocupada
 
+Pode acontecer de a porta 8080 já estar ocupada.
 
-Após a finalização do desafio, seu projeto estará completo e a aplicação irá mostrar os dados, de forma similar à abaixo:
+```bash
+***************************
+APPLICATION FAILED TO START
+***************************
 
+Description:
 
-![image](https://github.com/jacqueline-oliveira/3356-java-desafio-front/assets/66698429/bbd2799d-1360-4f0d-9330-f3a002c1a8c4)
+Web server failed to start. Port 8080 was already in use.
 
+Action:
 
-# Bom desafio!
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+Process finished with exit code 1
+```
+
+Neste caso altere a porta no **application.properties**:
+
+```yaml
+server.port=8081
+```
